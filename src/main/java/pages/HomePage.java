@@ -43,29 +43,27 @@ public class HomePage extends BasePage {
     @FindBy(id = "android:id/button1")
     private WebElement register;
 
-    @FindBy(xpath = "//*[@class='android.widget.ImageButton']")
-    private WebElement openMenu;
+    @FindBy(className = "android.widget.ImageButton")
+    private List<WebElement> openMenu;
 
     private By indredientsId = By.id("com.app.kwik1:id/tb_switch_image");
 
+    @FindBy(id = "com.app.kwik1:id/design_menu_item_text")
+    private List<WebElement> menuItem;
+
     public void selectFoodItem() {
         selectItemAndSeeDetails();
-        waitForElementsToBeVisible(closeImage);
-        closeImage.click();
         waitForElementsToBeVisible(openSpinner);
         openSpinner.click();
         waitForElementsToBeVisible(chooseType);
         chooseType.get(1).click();
-        waitForElementsToBeVisible(switchToWifi);
-        switchToWifi.click();
-        driver.navigate().back();
         selectItemAndSeeDetails();
-        waitForElementsToBeVisible(buyNow);
-        buyNow.click();
+        waitForElementsToBeVisible(openMenu);
+        openMenu.get(1).click();
+        waitForElementsToBeVisible(menuItem);
+        menuItem.get(1).click();
         waitForElementsToBeVisible(register);
         register.click();
-//        waitForElementsToBeVisible(openMenu);
-//        openMenu.click();
     }
 
     private void selectItemAndSeeDetails() {
@@ -73,5 +71,8 @@ public class HomePage extends BasePage {
         foodItemList.get(0).click();
         if (isElementPresent(indredientsId))
             seeIngredients.click();
+        waitForElementsToBeVisible(closeImage);
+        closeImage.click();
+
     }
 }
